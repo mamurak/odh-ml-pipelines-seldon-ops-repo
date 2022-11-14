@@ -1,19 +1,14 @@
-apiVersion: machinelearning.seldon.io/v1
-kind: SeldonDeployment
+apiVersion: serving.kserve.io/v1beta1
+kind: InferenceService
 metadata:
-  name: inference-service
+  annotations:
+    serving.kserve.io/deploymentMode: ModelMesh
+  name: anomaly-detection
 spec:
-  name: inference-service
-  predictors:
-  - graph:
-      envSecretRefName: seldon-rclone-secret
-      implementation: SKLEARN_SERVER
-      modelUri: s3://anomaly-detection-2211141031
-      name: inference-service
-      parameters:
-      - name: method
-        type: STRING
-        value: predict
-      storageInitializerImage: seldonio/rclone-storage-initializer:1.12.0
-    name: predictor
-    replicas: 1
+  predictor:
+    model:
+      modelFormat: !!set
+        sklearn: null
+      storage:
+        key: odf
+        path: model-2211141426.joblib
