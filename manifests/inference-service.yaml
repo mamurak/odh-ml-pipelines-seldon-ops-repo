@@ -11,4 +11,4 @@ spec:
         sklearn: null
       storage:
         key: odf
-        path: model-2211141426.joblib
+        path: model-2211160618.joblib
